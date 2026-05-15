@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+
+<title>Ensalamento</title>
+
+<meta http-equiv="refresh" content="30">
+
+<style>
+
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    padding:40px;
+}
+
+h1{
+    font-size:50px;
+    margin-bottom:40px;
+}
+
+.card{
+    background:#222;
+    padding:25px;
+    border-radius:12px;
+    margin-bottom:20px;
+    font-size:28px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>ENSALAMENTO</h1>
+
+<div id="dados">
+Carregando...
+</div>
+
+<script>
+
+const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSu8UhjEelWw8Vum5g6lQolhxsdDh4r_daFo3x9xtbLVCY_GGJCbMwzKUoIm0OQsAJKIvaER4zUvNOb/pub?output=csv";
+
+async function carregarDados(){
+
+    const resposta = await fetch(csvUrl);
+    const texto = await resposta.text();
+
+    const linhas = texto.trim().split("\n");
+
+    let html = "";
+
+    for(let i = 1; i < linhas.length; i++){
+
+        const colunas = linhas[i].split(",");
+
+        if(colunas.length >= 4){
+
+            html += `
+                <div class="card">
+                    <p><strong>Curso:</strong> ${colunas[0]}</p>
+                    <p><strong>Turma:</strong> ${colunas[1]}</p>
+                    <p><strong>Docente:</strong> ${colunas[2]}</p>
+                    <p><strong>Ambiente:</strong> ${colunas[3]}</p>
+                </div>
+            `;
+        }
+    }
+
+    document.getElementById("dados").innerHTML = html;
+}
+
+carregarDados();
+
+</script>
+
+</body>
+</html>
