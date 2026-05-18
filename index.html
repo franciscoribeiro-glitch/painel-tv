@@ -46,7 +46,9 @@ async function carregarDados(){
 
     try{
 
-        const resposta = await fetch(csvUrl);
+        const resposta = await fetch(
+            csvUrl + "&t=" + new Date().getTime()
+        );
 
         const texto = await resposta.text();
 
