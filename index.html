@@ -40,14 +40,17 @@ Carregando...
 
 <script>
 
-const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSu8UhjEelWw8Vum5g6lQolhxsdDh4r_daFo3x9xtbLVCY_GGJCbMwzKUoIm0OQsAJKIvaER4zUvNOb/pub?output=csv";
+const csvUrl = "https://docs.google.com/spreadsheets/d/19pHkKTZfHALu27rE5ZFeaxUw8YOo1r45DmhBXa0kqMk/export?format=csv";
 
 async function carregarDados(){
 
     try{
 
         const resposta = await fetch(
-            csvUrl + "&t=" + new Date().getTime()
+            csvUrl + "&t=" + new Date().getTime(),
+            {
+                cache: "no-store"
+            }
         );
 
         const texto = await resposta.text();
